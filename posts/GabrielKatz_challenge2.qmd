@@ -1,0 +1,107 @@
+---
+title: "Challenge 2"
+author: "Gabriel Katz"
+desription: "Data wrangling: using group() and summarise()"
+date: "11/6/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - challenge_2
+  - hotel_bookings
+  - Gabriel_Katz
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(dplyr)
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## Challenge Overview
+
+Today's challenge is to
+
+1)  read in a data set, and describe the data using both words and any supporting information (e.g., tables, etc)
+2)  provide summary statistics for different interesting groups within the data, and interpret those statistics
+
+## Read in the Data
+
+Read in one (or more) of the following data sets, available in the `posts/_data` folder, using the correct R package and command.
+
+-   hotel_bookings.csv ⭐⭐⭐⭐
+
+```{r}
+Bookings <- read_csv("_data/hotel_bookings.csv")
+```
+
+Add any comments or documentation as needed. More challenging data may require additional code chunks and documentation.
+
+## Describe the data
+
+Using a combination of words and results of R commands, can you provide a high level description of the data? Describe as efficiently as possible where/how the data was (likely) gathered, indicate the cases and variables (both the interpretation and any details you deem useful to the reader to fully understand your chosen data).
+
+```{r}
+colnames(Bookings)
+```
+This is a pretty wide set of data with 32 total columns of variables. Using the #colnames function, a numbered list of column names is displayed.
+## Provide Grouped Summary Statistics
+
+Conduct some exploratory data analysis, using dplyr commands such as `group_by()`, `select()`, `filter()`, and `summarise()`. Find the central tendency (mean, median, mode) and dispersion (standard deviation, mix/max/quantile) for different subgroups within the data set.
+
+```{r}
+hotel_types <- select(Bookings, 1)
+
+table(hotel_types)
+```
+
+```{r}
+hotel_customers <- select(Bookings, 27)
+
+table(hotel_customers)
+```
+
+
+### Explain and Interpret
+
+Since this dataframe is so incredibly long, consisting of 119,390 total rows, and it isn't immediately evident what we are working with just by looking at column names, I decided to create some quick tables above just to see what types of variables and observations are included in the dataframe. From here I can see that there are City Hotels and Resort Hotels present in the dataframe. Customer types include contract, group, transient, and transient-party. Now that I know some of the basic information about the data as a whole I have a better idea of what sorts of analyses I may be interested in pursuing.
+
+```{r}
+months_years <- select(Bookings, 5, 4)
+
+table(months_years)
+```
+
+Here I created another table to look at the arrival months and years within the dataframe. I want to see this information so that I understand the total scope of the data a little bit more. What this table illustrates most to me is the fact that the months of August and July are the only 2 which contain measurements across all 3 years of data collection. Since I am most interested in conducting more long-term analyses that take advantage of the "widest" points of data in this specific set, I am going to focus in on only the month of July going forward. 
+
+```{r}
+bookings_July <- filter(Bookings, `arrival_date_month` == "July")
+
+bookings_July %>%
+  arrange("July")
+```
+In the table above I isolate the month of July. At the bottom of the tibble I can see that displayed are rows 1-10 of 12,661 total rows. This checks out numerically when I go back to the previous table and add up the 3 year totals. This is a step forward, but still casting a very large net considering the amount of observations and variables contained in this specific tibble. While it is not too time consuming to click through all the variables of the tibble, it does not make sense to try and see all the rows this way. 
+
+In the following tibble, a mean is generated across all 32 columns of data of observations from the month of July. From here it is easier to get a better sense of general trends across the entire month for all of the different categories of data. 
+
+```{r}
+summarize_all(bookings_July, list(mean=mean))
+```
+
+```{r}
+bookings_July %>%
+  group_by("adr") %>%
+  group_by("lead_time") %>%
+  summarise(mean(lead_time), mean(adr))
+```
+
+
+In the previous tibble, I found means of both lead time and adr. This illustrates what I believe that an average reservation is booked between 136 days before the actual visit, and the average price is $126 per night.  
