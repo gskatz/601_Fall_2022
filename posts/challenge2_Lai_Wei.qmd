@@ -1,0 +1,91 @@
+---
+title: "Challenge 2"
+author: "Lai Wei"
+desription: "Data wrangling: using group() and summarise()"
+date: "10/26/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - challenge_2
+  - railroads
+  - faostat
+  - hotel_bookings
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(summarytools)
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## Challenge Overview
+
+Today's challenge is to
+
+1)  read in a data set, and describe the data using both words and any supporting information (e.g., tables, etc)
+2)  provide summary statistics for different interesting groups within the data, and interpret those statistics
+
+## Read in the Data
+
+-   railroad\*.csv or StateCounty2012.xls ⭐
+-   FAOstat\*.csv or birds.csv ⭐⭐⭐
+-   hotel_bookings.csv ⭐⭐⭐⭐
+
+```{r}
+hotel <- read.csv("_data/hotel_bookings.csv")
+```
+
+Read the hotel_bookings data as hotel. 
+
+## Describe the data
+
+```{r}
+hotel %>% 
+  select(reservation_status) %>% 
+  distinct()
+```
+There are 3 different reservation status of the hotel, 'check-out', 'canceled' and 'no-show'.
+
+## Provide Grouped Summary Statistics
+
+Data summary
+```{r}
+hotel %>% 
+  summarise(across(c(country,market_segment),n_distinct))
+``` 
+Count the number of unique 178 countries and 8 different market_segments of hotel data
+
+Group_by() application
+```{r}
+hotel %>% 
+  group_by(reservation_status) %>% 
+  summarise(num_adult = sum(adults,na.rm = TRUE),
+            num_child = sum(children,na.rm = TRUE),
+            num_baby = sum(babies, na.rm = TRUE))
+```
+In total, we can see how many adults, children and babies were checking in successfully. The information may help the hotel to arrange more facilities 
+for children or babies. 
+
+Data summary visualization 
+```{r}
+print(summarytools::dfSummary(hotel,
+                        varnumbers = FALSE,
+                        plain.ascii  = FALSE, 
+                        style        = "grid", 
+                        graph.magnif = 0.70, 
+                        valid.col    = FALSE),
+      method = 'render',
+      table.classes = 'table-condensed')
+```
+
+### Explain and Interpret
+
+I choose this data is because I did the middle level in summer session and this time I want to practice something which is more complex and fun for increasing my R skill. 

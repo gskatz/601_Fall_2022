@@ -1,0 +1,34 @@
+---
+title: "Michaela Bowen"
+image: images/MichaelaBowen.jpeg
+about:
+  template: solana
+  image-width: 15em
+  image-shape: round
+  image: images/MichaelaBowen.jpeg
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/github_Mikay711
+---
+
+
+## Education/Work Background
+Applied Mathematics and African American Studies
+
+Currently Working in the Cannabis Industry as Inventory Specialist
+
+## R experience
+Little to none
+
+## Research interests
+Mass Incarceration
+
+## Hometown
+Amherst, MA
+
+## Hobbies
+Singing, Knitting
+
+## Fun fact
+Self Identified Cat Lady

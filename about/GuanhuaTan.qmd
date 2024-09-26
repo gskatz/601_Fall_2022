@@ -1,0 +1,34 @@
+---
+title: "Guanhua Tan"
+image: images/GuanhuaTan.JPG
+about:
+  template: solana
+  image-width: 15em
+  image-shape: round
+  image: images/GuanhuaTan.JPG
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/TerenceGTan
+---
+
+## Education/Work Background
+PhD candidate Department of History, UMass;
+M.A. Department of History, Illinois State University;
+M.A.Department of History, East China Normal University;
+B.A. Department of History, East China Normal University;
+
+## R experience
+No Previous Experience
+
+## Research interests
+History of Education
+
+## Hometown
+Shanghai, China
+
+## Hobbies
+Reading, Window Shopping
+
+## Fun fact
+UMass Dinning

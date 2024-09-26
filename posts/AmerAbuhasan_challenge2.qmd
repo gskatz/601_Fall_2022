@@ -1,0 +1,123 @@
+---
+title: "Challenge 2 solutions"
+author: "Amer Abuhasan"
+desription: "Data wrangling: using group() and summarise()"
+date: "08/16/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - challenge_2
+  - railroads
+  - faostat
+  - hotel_bookings
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## Challenge Overview
+
+Today's challenge is to
+
+1)  read in a data set, and describe the data using both words and any supporting information (e.g., tables, etc)
+2)  provide summary statistics for different interesting groups within the data, and interpret those statistics
+
+## Read in the Data
+
+Read in one (or more) of the following data sets, available in the `posts/_data` folder, using the correct R package and command.
+
+-   railroad\*.csv or StateCounty2012.xls ⭐
+-   FAOstat\*.csv or birds.csv ⭐⭐⭐
+-   hotel_bookings.csv ⭐⭐⭐⭐
+
+```{r}
+railroad <- read_csv("_data/railroad_2012_clean_county.csv")
+railroad
+
+
+
+
+```
+
+Add any comments or documentation as needed. More challenging data may require additional code chunks and documentation.
+
+## Describe the data
+
+Using a combination of words and results of R commands, can you provide a high level description of the data? Describe as efficiently as possible where/how the data was (likely) gathered, indicate the cases and variables (both the interpretation and any details you deem useful to the reader to fully understand your chosen data).
+
+```{r}
+#| label: summary
+#The data provided is the Countys in each state and the ammount of Employees who work for the railroads. Each county has a certain amount of counties and we will be grouping them together to show states and counties together to add up the employees 
+```
+
+## Provide Grouped Summary Statistics
+
+Conduct some exploratory data analysis, using dplyr commands such as `group_by()`, `select()`, `filter()`, and `summarise()`. Find the central tendency (mean, median, mode) and dispersion (standard deviation, mix/max/quantile) for different subgroups within the data set.
+
+```{r}
+library(dplyr)
+railroad%>%
+  group_by(state) %>%
+  summarise(n = n())
+ 
+railroad%>%
+  group_by(state)%>%
+  summarise(E=  sum(total_employees))
+
+railroad%>%
+  group_by(county)%>%
+  summarise(E=  sum(total_employees))
+
+library(dplyr)
+filter(railroad, 'total_employees' >=100)
+
+railroad%>%
+  filter(total_employees>10)
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+```
+
+### Explain and Interpret
+
+Be sure to explain why you choose a specific group. Comment on the interpretation of any interesting differences between groups that you uncover. This section can be integrated with the exploratory data analysis, just be sure it is included.
+
+#explain
+The data i used above was able to group by different columns 
+# the first code 
+The first code was used to find the amount labeled(N) to see how many times a state was mentioned in the columns 
+
+#the second code 
+The second code was using the state and seeing how many employees were in that state 
+
+#the third code 
+The third code allowed to go into depth on the employee count and sum the number of employees in each county. 
+
+#the Fifth Code 
+The fifth code explains total employees over the number of 10 

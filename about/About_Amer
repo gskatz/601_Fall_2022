@@ -1,0 +1,49 @@
+---
+title: "Megha Joseph"
+image: images/YourName.jpeg
+about:
+  template: solana
+  image-width: 15em
+  image-shape: round
+  image: images/YourName.jpeg
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/Meghajsf30
+---
+
+##Instructions
+
+  - save a copy of this document as *FirstLast.qmd* in the **about** folder
+  - replace *Your Name* in yaml header with your first and last name
+  - save an image (jpeg, png) to use in the **about/images** folder
+  - replace image names in yaml header
+  - replace github user name
+  - fill in information below, as appropriate
+  - commit to github and submit pull request
+
+## Education/Work Background
+
+English Lecturer, St. Thomas College, Ranni, Mahatma Gandhi University
+
+Master of Arts in English Language and Literature
+
+Bachelor of Arts in English Language and Literature
+
+
+## R experience
+
+No Experience
+
+## Research interests
+
+
+## Hometown
+Kerala
+
+## Hobbies
+Reading, Baking, Singing
+
+## Fun fact
+Started career in English Literature and ending up as People Analyst
+
